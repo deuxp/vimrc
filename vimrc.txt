@@ -1,0 +1,105 @@
+call plug#begin()
+
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-repeat'
+Plug 'scrooloose/nerdtree'
+Plug 'mhinz/vim-startify'
+Plug 'itchyny/lightline.vim'
+Plug 'jiangmiao/auto-pairs'
+
+" language helpers
+Plug 'pangloss/vim-javascript'
+Plug 'sheerun/vim-polyglot'
+
+" Colorschemes
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'sainnhe/gruvbox-material'
+Plug 'arcticicestudio/nord-vim'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'ctrlpvim/ctrlp.vim' 
+
+call plug#end()
+
+let mapleader = ' '
+
+" lightline
+set laststatus=2 
+
+" Lightline Themes
+let g:lightline = {'colorscheme': 'apprentice'}
+" let g:lightline = {'colorscheme': 'rosepine'}
+" let g:lightline = {'colorscheme': 'simpleblack'}
+" let g:lightline = {'colorscheme': 'powerlineish'}
+" let g:lightline = {'colorscheme': 'Tomorrow_Night'}
+" let g:lightline = {'colorscheme': 'ayu_dark'}
+
+syntax on
+set nu
+set relativenumber
+set noshowcmd
+set noshowmode
+set wildmenu
+set showmatch
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+set autoindent
+set autoread
+set smartindent
+set tabstop=2
+set softtabstop=2
+set expandtab
+set ruler
+set backspace=indent,eol,start
+set scrolloff=5
+set cmdheight=1
+
+set termguicolors
+highlight SignColumn ctermbg=233
+set signcolumn=yes
+set background=dark
+" set background=light
+
+set nowrap
+set nobackup
+set hidden
+set noswapfile
+set nowritebackup
+colorscheme nord
+
+
+" Keymappings
+" - ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~
+
+" save & quit
+nnoremap <leader>w :w<cr>
+nnoremap <leader>q :q<cr>
+
+" Better ESC
+xnoremap jk <esc>
+xnoremap kj <esc>
+inoremap jk <esc>
+inoremap kj <esc>
+
+" Better Delete
+nnoremap <leader>d dd
+
+nnoremap <leader>n :nohl<cr>
+
+" Buffer
+nnoremap H :bprevious<cr>
+nnoremap L :bnext<cr>
+
+nnoremap <leader>o O<cr>
+
+" fuzzy finder
+" nnoremap - <ctrl>p
+
+" NerdTree
+nnoremap <leader>e :NERDTreeToggle<cr>
