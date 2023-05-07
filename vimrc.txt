@@ -10,7 +10,8 @@ Plug 'mhinz/vim-startify'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'"
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'ap/vim-css-color'
 
 " post install (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', {
