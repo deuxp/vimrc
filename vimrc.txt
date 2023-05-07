@@ -9,6 +9,13 @@ Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'"
+
+" post install (yarn install | npm install) then load plugin only for editing supported files
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 " language helpers
 Plug 'pangloss/vim-javascript'
@@ -20,6 +27,8 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/gruvbox-material'
 Plug 'arcticicestudio/nord-vim'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+
+" fuzzy finding
 Plug 'ctrlpvim/ctrlp.vim' 
 
 call plug#end()
@@ -71,7 +80,7 @@ set nobackup
 set hidden
 set noswapfile
 set nowritebackup
-colorscheme nord
+colorscheme tokyonight
 
 
 " Keymappings
@@ -82,8 +91,8 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 
 " Better ESC
-xnoremap jk <esc>
-xnoremap kj <esc>
+" xnoremap jk <esc>
+" xnoremap kj <esc>
 inoremap jk <esc>
 inoremap kj <esc>
 
