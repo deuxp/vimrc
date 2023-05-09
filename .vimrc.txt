@@ -1,0 +1,284 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'mhinz/vim-startify'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
+" Plug 'airblade/vim-rooter'
+Plug 'wellle/targets.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+
+Plug 'tpope/vim-repeat'
+Plug 'scrooloose/nerdtree'
+Plug 'machakann/vim-highlightedyank'
+
+" Plug 'itchyny/lightline.vim'
+
+
+" Syntax formatters
+Plug 'ap/vim-css-color'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'sheerun/vim-polyglot'
+
+" post install (yarn install | npm install) then load plugin only for editing supported files
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+
+" Color Schemes
+Plug 'sainnhe/gruvbox-material'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'sainnhe/edge'
+Plug 'sainnhe/sonokai'
+Plug 'arcticicestudio/nord-vim'
+Plug 'doums/darcula'
+Plug 'jacoborus/tender.vim'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
+Plug 'wuelnerdotexe/vim-enfocado'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+call plug#end()
+
+set nocompatible
+filetype plugin on
+
+let g:highlightedyank_highlight_duration = 100
+
+" Airline
+" --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+let g:airline_powerline_fonts = 1
+let g:airline_theme='minimalist'
+
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+"
+" Git Gutter
+" --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+let g:gitgutter_enabled = 1
+" highlight GitGutterAdd ctermfg=046 ctermbg=233
+" highlight GitGutterChange ctermfg=221 ctermbg=233
+" highlight GitGutterDelete ctermfg=124 ctermbg=233
+
+
+" --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+" Prettier
+" --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+" :nnoremap <leader>p :Prettier<CR>
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+
+
+" fzf
+" --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+" set rtp+=/opt/homebrew/opt/fzf
+" set updatetime=100
+
+" EasyMotion
+" let g:EasyMotion_do_mapping = 0 "disable default mappings"
+" let g:EasyMotion_smartcase = 1
+
+"  --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+"  Mappings
+"  --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+let mapleader = ' '
+
+" save & quit
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
+nnoremap <leader>w :w<cr>
+nnoremap <leader>q :q<cr>
+
+nnoremap <leader>d dd
+
+" EasyMotion
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
+" nmap s <Plug>(easymotion-s2)
+" nmap S <Plug>(easymotion-w)
+
+" :nohl 
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
+:nnoremap <leader>n :nohl<CR>
+
+" cursor highlight toggle
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
+:nnoremap H :set cursorline! cursorcolumn!<CR>
+
+" next buffer - ctrl+6 => back and forth
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
+:nnoremap <Tab> :bnext<CR>
+:nnoremap <leader><Tab> :bprevious<CR>
+
+" split movements <C-w>v <C-w>s stands for control window
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
+:nnoremap <C-j> <C-w><C-j>
+:nnoremap <C-l> <C-w><C-l>
+:nnoremap <C-h> <C-w><C-h>
+:nnoremap <C-k> <C-w><C-k>
+
+" Screen Scroll
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+":nnoremap <C-j> <C-d>
+":nnoremap <C-k> <C-u>
+
+" resize splits
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+:nnoremap <Up> :resize -2<CR>
+:nnoremap <Down> :resize +2<CR>
+:nnoremap <Left> :vertical :resize -2<CR>
+:nnoremap <Right> :vertical :resize +2<CR>
+
+" Yank to end of the line
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+:nnoremap Y y$
+
+" better escape
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
+:inoremap jk <ESC>
+:inoremap kj <ESC>
+
+" NerdTree
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+nnoremap <leader>e :NERDTreeToggle<cr>
+
+" FZF files & Open Buffers & Search Project
+"--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+" :nnoremap <leader>b :Buffer<CR>
+" :nnoremap <C-p> :Files!<CR>
+:nnoremap <C-p> :FZF<CR>
+" :nnoremap <leader>rg :Rg!<CR>
+
+syntax on
+set nu
+set relativenumber
+set showcmd
+set cursorline
+set cursorcolumn
+set wildmenu
+set showmatch
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+set autoindent
+set smartindent
+set tabstop=4
+set softtabstop=4
+set expandtab
+set ruler
+set backspace=indent,eol,start
+set scrolloff=8
+set cmdheight=2
+set laststatus=2
+
+set termguicolors
+set signcolumn=yes
+" set colorcolumn=80
+" highlight SignColumn ctermbg=233
+" highlight ColorColumn ctermbg=237
+" hi CursorLine cterm=NONE ctermbg=232
+" hi CursorColumn ctermbg=240
+set background=dark
+" set background=light
+colorscheme catppuccin_frappe
+
+set nowrap
+set nobackup
+set hidden
+set noswapfile
+set nowritebackup
+set autoread
+
+" Auto Save ---------------------------------------------
+" " save on buffer switch OR lose focus
+" set autowrite
+" " set autowriteall
+" :au FocusLost * :w
+
+" Cursor line ---------------------------------------------
+:autocmd InsertEnter * set cul
+:autocmd InsertLeave * set nocul
+
+" Status line ---------------------------------------------
+
+" set laststatus=2
+" function! GitBranch()
+"   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+" endfunction
+
+" function! StatuslineGit()
+"   let l:branchname = GitBranch()
+"   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+" endfunction
+
+" set statusline=
+" set statusline+=%#PmenuSel#
+" set statusline+=%{StatuslineGit()}
+" set statusline+=%#LineNr#
+" set statusline+=\ %f
+" set statusline+=%m\
+" set statusline+=%=
+" set statusline+=%#CursorColumn#
+" set statusline+=\ %y
+" set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+" set statusline+=\[%{&fileformat}\]
+" set statusline+=\ %p%%
+" set statusline+=\ %l:%c
+" set statusline+=\ 
+
+" Auto close tag
+" - ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~
+
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
