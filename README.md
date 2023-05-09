@@ -2,14 +2,14 @@
 
 1. install `vim-plug` by [Junegunn](https://github.com/junegunn/vim-plug)
 
-## Unix
+#### Unix
 
 ```bash
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-## Linux
+#### Linux
 
 ```bash
 curl -fLo ~/.var/app/io.neovim.nvim/data/nvim/site/autoload/plug.vim --create-dirs \
