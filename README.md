@@ -4,7 +4,7 @@
 1. `mv` the desired `vimrc.txt` file to the home directory, renaming it to `.vimrc`
 1. open the .vimrc & run `:PlugInstall`
 1. add lines in the bashrc-add-on.txt to your bash or zsh rc file to display git branch info in your PROMPT
-1. install desired lsp plugins for `coc.nvim`(https://github.com/neoclide/coc.nvim)
+1. install desired lsp plugins for [`coc.nvim`](https://github.com/neoclide/coc.nvim)
 
 ### Dependencies
 
