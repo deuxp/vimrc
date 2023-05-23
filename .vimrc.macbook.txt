@@ -1,4 +1,4 @@
- call plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/plugged')
 
 " git & terminal
 Plug 'tpope/vim-fugitive'
@@ -7,9 +7,10 @@ Plug 'voldikss/vim-floaterm'
 
 " Search & Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 Plug 'scrooloose/nerdtree'
-" dependencies: ack & ripgrep 
+" dependencies: ack & ripgrep -- deprecated, remove
 Plug 'mileszs/ack.vim'
 
 " editing helpers
@@ -59,32 +60,13 @@ call plug#end()
 
 
 " to see list of colorschemes --> :h g:lightline.colorscheme
-" let g:lightline = { 'colorscheme': 'wombat' }
-" let g:lightline = { 'colorscheme': 'Tomorrow_Night' }
 let g:lightline = { 'colorscheme': 'Tomorrow_Night_Eighties' }
-" let g:lightline = { 'colorscheme': 'materia' }
-" let g:lightline = { 'colorscheme': 'material' }
-" let g:lightline = { 'colorscheme': 'srcery_drk' }
-" let g:lightline = { 'colorscheme': 'powerlineish' }
-" let g:lightline = { 'colorscheme': 'darcula' }
-" let g:lightline = { 'colorscheme': 'nord' }
-" let g:lightline = { 'colorscheme': 'PaperColor' }
-" let g:lightline = { 'colorscheme': 'deus' }
-" let g:lightline = { 'colorscheme': 'OldHope' }
-" let g:lightline = { 'colorscheme': 'landscape' }
-" let g:lightline = { 'colorscheme': 'apprentice' }
-" let g:lightline = { 'colorscheme': 'one' }
-" let g:lightline = { 'colorscheme': 'jellybeansk' }
-" let g:lightline = { 'colorscheme': 'simpleblack' }
 
-set nocompatible
+" ///////////////////////////
+" /////  OPTIONS /////////////
+" /////////////////////////////
 filetype plugin on
-
-" Prefer rg > ack ------> for ack.vim, use ripgrep engine first,
-if executable('rg')
-    let g:ackprg = 'rg -S --no-heading --vimgrep'
-endif
-
+set nocompatible
 
 let g:highlightedyank_highlight_duration = 100
 
@@ -95,54 +77,32 @@ let g:gitgutter_enabled = 1
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
 
-"  --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-"  MappingsMappingMappingMappingMappingMappingMappingssssss 
-"  --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-"  MappingsMappingMappingMappingMappingMappingMappingssssss 
-"  --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-"  --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+" ///////////////////////////////////
+" ///// KEY MAPPINGS /////////////////
+" //////////////////////////////////////
 let mapleader = ' '
 
 " save & quit
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
-
 " del
 nnoremap <leader>d dd 
-
-" new line with surrounding space
-nnoremap <leader>o O<CR>
 
 " :nohl 
 :nnoremap <leader>n :nohl<CR>
 
-" cursor highlight toggle
-:nnoremap H :set cursorline! cursorcolumn!<CR>
-
-" next buffer - ctrl+6 => back and forth
-"--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
-"just use this and last buffer ^ and :bd for buffer delete
-:nnoremap <leader>b :bnext<CR> 
-"
-" split movements <C-w>v <C-w>s stands for control window
-"--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
-:nnoremap <C-j> <C-w><C-j>
-:nnoremap <C-l> <C-w><C-l>
-:nnoremap <C-h> <C-w><C-h>
-:nnoremap <C-k> <C-w><C-k>
-
 " resize splits
 "--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-:nnoremap <Up> :resize -2<CR>
-:nnoremap <Down> :resize +2<CR>
-:nnoremap <Left> :vertical :resize -2<CR>
-:nnoremap <Right> :vertical :resize +2<CR>
+:nnoremap <Up> :resize +2<CR>
+:nnoremap <Down> :resize -2<CR>
+:nnoremap <Left> :vertical :resize +2<CR>
+:nnoremap <Right> :vertical :resize -2<CR>
 
 " Yank to end of the line
 "--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 :nnoremap Y y$
 
-" better escape
+" escape to normal mode
 "--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
 :inoremap jk <ESC>
 :inoremap kj <ESC>
@@ -151,24 +111,32 @@ nnoremap <leader>o O<CR>
 "--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 nnoremap <leader>e :NERDTreeToggle<cr>
 
-" Ack!
-:nnoremap <leader>\ :Ack!<Space>
-"
 " Floaterm 
 nnoremap <leader>t :FloatermNew lazygit<cr>
 let g:floaterm_height = 0.9
 let g:floaterm_width = 0.9
 
-" FZF files & Open Buffers & Search Project
+" FZF files & Buffers
 "--- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-:nnoremap <C-p> :FZF<CR>
+:nnoremap <C-p> :GFiles<CR>
 set rtp+=/opt/homebrew/opt/fzf
 set updatetime=100
-" set updatetime=300
+" last buffer: <C-^> .. back and forth
+":bd - buffer delete
+":ls - buffer list
+":b# - buffer number
 "
-" :nnoremap <leader>b :Buffer<CR>
-" :nnoremap <C-p> :Files!<CR>
-" :nnoremap <leader>rg :Rg!<CR>
+" Open Buffer Search
+:nnoremap <leader>b :Buffers<CR> 
+" Pattern search
+:nnoremap <leader>\ :Rg<CR>
+
+" Ack! -> search for pattern in Project files
+" :nnoremap <leader>\ :Ack!<Space>
+" Preferred File Search Engine; Ripgrep engine 
+" if executable('rg')
+"     let g:ackprg = 'rg -S --no-heading --vimgrep'
+" endif
 
 syntax on
 set nu
@@ -197,10 +165,10 @@ set laststatus=2 " lightline
 set termguicolors
 set signcolumn=yes
 set background=dark
-colorscheme nord
+colorscheme minimalist
 
 " set the backgroud to transparent:
-hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 
 set nowrap
 set nobackup
@@ -219,8 +187,7 @@ set autoread
 :autocmd InsertEnter * set cul
 :autocmd InsertLeave * set nocul
 
-" Status line ---------------------------------------------
-
+" --------Status line --(no plugin)------------------------
 " set laststatus=2
 " function! GitBranch()
 "   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -248,7 +215,6 @@ set autoread
 
 " Auto close tag
 " - ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~- ~
-
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
 "
@@ -346,7 +312,35 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
-" Remap keys for applying refactor code actions
-nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
-xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
-nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+let g:asciis = [
+      \ '',
+      \ '',
+      \ '      ⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣶⣿⣿⣿⣿⣿⣿⣿⣶⣦⣀⠀⠀⠀⠀⠀⠀⠀',
+      \ '      ⠀⠀⠀⠀⠀⠀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀',
+      \ '      ⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⢠',
+      \ '      ⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣛⣻⣿⣿⣟⣿⣿⣿⣷⠀⠀⠀',
+      \ '      ⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣫⣽⣾⣻⣾⣿⣿⣿⣿⡿⣿⣿⠀⠀⠀',
+      \ '      ⠀⠀⠀⢰⣿⣿⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠻⡿⠿⠟⠛⣟⣿⣽⠀⠀⠀',
+      \ '      ⠀⠀⠀⠸⣿⣿⣿⣷⣿⣿⣿⣿⡿⠍⠈⠀⠁⣴⡆⠀⠀⠠⢭⣮⣿⡶⠀⠀',
+      \ '      ⠀⡴⠲⣦⢽⣿⣿⣿⣿⣿⣟⣩⣨⣀⡄⣐⣾⣿⣿⣇⠠⣷⣶⣿⣿⡠⠁⠀',
+      \ '      ⠀⠃⢀⡄⠀⢻⣿⣿⣿⣿⣽⢿⣿⣯⣾⣿⣿⣿⣿⣿⢿⣿⣿⡟⣿⠀⠀⠀',
+      \ '      ⠀⠀⠣⠧⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢸⣿⠿⠿⠿⣧⠙⣿⣿⡿⠀⠀⠀',
+      \ '      ⠀⠀⠀⠁⠼⣒⡿⣿⣿⣿⣿⣿⣿⣿⣠⣬⠀⠀⠀⠀⣾⣷⡈⣿⡇⠀⠀⠀',
+      \ '      ⠀⠀⠀⠀⠀⠉⢳⣿⣿⣿⣿⣿⣿⣿⢟⠗⠼⠖⠒⠔⠉⠉⠻⣿⠇⠀⠀⠀',
+      \ '      ⠀⠀⠀⠀⠀⠀⠈⣻⡿⣿⣿⣿⣿⡿⡀⣤⡄⠸⣰⣾⡒⣷⣴⣿⠀⠀⠀⠀',
+      \ '      ⠀⠀⠀⠀⠀⠀⠂⢸⡗⡄⠘⠭⣭⣷⣿⣮⣠⣌⣫⣿⣷⣿⣿⠃⠀⠈⠀⠀',
+      \ '      ⠀⠀⠀⠀⠀⠈⠀⢸⣿⣾⣷⣦⡿⣿⣿⣿⡿⢻⠞⣹⣿⣿⠏⠀⠀⠀⠀⠀',
+      \ '      ⠀⠀⠀⠀⠀⢘⠀⠘⢻⡿⢿⣋⣤⣤⠌⠉⠛⠛⠀⠈⠉⠁⠀⠀⠀⠀⠀⡀',
+      \ '',
+        \ ]
+
+
+" let g:thought = [
+" 	\ 'o',
+" 	\ '  O',
+"   \ ]
+
+
+let g:startify_custom_header =
+			\ 'startify#pad(g:asciis)'
+			" \ 'startify#pad(startify#fortune#boxed() + startify#pad(startify#pad(startify#pad(g:thought + g:asciis))))'
