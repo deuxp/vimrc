@@ -11,4 +11,4 @@
 1. [optional] [ripgrep](https://github.com/BurntSushi/ripgrep)
 1. [ack](https://beyondgrep.com/install/)
 1. npm || yarn
-1. [lazygit](https://github.com/jesseduffield/lazygit)
+1. [lazygit](https://github.com/jesseduffield/lazygit), binaries for raspi [here](https://github.com/jesseduffield/lazygit/releases)
